@@ -47,6 +47,20 @@ namespace ProvaLogicaProgramacao {
 
             double valorFinal = ValorDaPeca * double.Parse(pecas[1]);
             Console.WriteLine($"Total: R$ {valorFinal.ToString("F2", CultureInfo.InvariantCulture)}");
+
+            //Exercício 2.2:
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("Exercício 2.2");
+            Console.WriteLine("Digite o valor de A, B e C (separado por espaço):");
+            string[] abc = Console.ReadLine().Split(' ');
+            double a = double.Parse(abc[0]);
+            double b = double.Parse(abc[1]);
+            double c = double.Parse(abc[2]);
+            double delta = Math.Pow(b, 2) - (4.0 * a * c);
+            double x1 = (-b + Math.Sqrt(delta)) / (2.0 * a); 
+            double x2 = (-b - Math.Sqrt(delta)) / (2.0 * a);
+            Console.WriteLine("X1 = {0}",x1.ToString("F5", CultureInfo.InvariantCulture));
+            Console.WriteLine("X2 = {0}", x2.ToString("F5", CultureInfo.InvariantCulture));
             #endregion
         }
     }
