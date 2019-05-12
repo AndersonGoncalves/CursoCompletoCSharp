@@ -62,6 +62,25 @@ namespace ProvaLogicaProgramacao {
             Console.WriteLine("X1 = {0}",x1.ToString("F5", CultureInfo.InvariantCulture));
             Console.WriteLine("X2 = {0}", x2.ToString("F5", CultureInfo.InvariantCulture));
             #endregion
+
+
+            #region PARTE 3: ESTRUTURAS REPETITIVAS
+            //Exercício 3.1:
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("Exercício 3.1");
+            while (true) {
+                Console.WriteLine("Informe a seha de acesso:");
+                string senha = Console.ReadLine();
+                if (senha != "2002") {
+                    Console.WriteLine("Senha inválida");
+                }
+                else {
+                    Console.WriteLine("Acesso permitido!");
+                    break;
+                }
+            }
+            #endregion
+
         }
     }
 }
