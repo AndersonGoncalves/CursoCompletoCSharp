@@ -57,12 +57,11 @@ namespace ProvaLogicaProgramacao {
             double b = double.Parse(abc[1]);
             double c = double.Parse(abc[2]);
             double delta = Math.Pow(b, 2) - (4.0 * a * c);
-            double x1 = (-b + Math.Sqrt(delta)) / (2.0 * a); 
+            double x1 = (-b + Math.Sqrt(delta)) / (2.0 * a);
             double x2 = (-b - Math.Sqrt(delta)) / (2.0 * a);
-            Console.WriteLine("X1 = {0}",x1.ToString("F5", CultureInfo.InvariantCulture));
+            Console.WriteLine("X1 = {0}", x1.ToString("F5", CultureInfo.InvariantCulture));
             Console.WriteLine("X2 = {0}", x2.ToString("F5", CultureInfo.InvariantCulture));
             #endregion
-
 
             #region PARTE 3: ESTRUTURAS REPETITIVAS
             //Exercício 3.1:
@@ -79,8 +78,30 @@ namespace ProvaLogicaProgramacao {
                     break;
                 }
             }
-            #endregion
 
+            //Exercício 3.2:
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("Exercício 3.2");
+            Console.WriteLine("Informe a quantidade de números:");
+            int qtdeValores = int.Parse(Console.ReadLine());
+            int qtdeDentro = 0;
+            int qtdeFora = 0;
+
+            for (int i = 0; i < qtdeValores; i++) {
+                Console.WriteLine("Informe o número {0}", i);
+                int x = int.Parse(Console.ReadLine());
+                
+                if ((x >= 10) && (x <= 20)) {
+                    qtdeDentro++;
+                }
+                else {
+                    qtdeFora++;
+                }
+            }
+
+            Console.WriteLine($"{qtdeDentro} in");
+            Console.WriteLine($"{qtdeFora} out");
+            #endregion
         }
     }
 }
