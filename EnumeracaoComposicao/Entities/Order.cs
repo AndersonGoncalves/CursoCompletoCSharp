@@ -41,7 +41,20 @@ namespace EnumeracaoComposicao.Entities
                 total += item.SubTotal();
             }
             return total;
+        }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("ORDER SUMMARY:");
+            sb.AppendLine($"Order Moment: {Moment.ToString("dd/MM/yyyy MM:ss")}");
+            sb.AppendLine($"Order Status: {OrderStatus.ToString()}");
+            sb.AppendLine($"Client: {Client}");
+            sb.AppendLine("Order Items:");
+            foreach (OrderItem oItem in Items)
+                sb.AppendLine(oItem.ToString());
+
+            return sb.ToString();
         }
     }
 }
