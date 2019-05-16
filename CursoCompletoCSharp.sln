@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProvaLogicaProgramacao", "ProvaLogicaProgramacao\ProvaLogicaProgramacao.csproj", "{EF41831D-8659-4C72-BA67-409C3380E403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumeracaoComposicao", "EnumeracaoComposicao\EnumeracaoComposicao.csproj", "{ABBAB03E-23B0-4229-8928-0E2F6E94F037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumeracaoComposicao", "EnumeracaoComposicao\EnumeracaoComposicao.csproj", "{ABBAB03E-23B0-4229-8928-0E2F6E94F037}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polimorfismo", "Polimorfismo\Polimorfismo.csproj", "{81863494-3261-40F9-80C7-828F37CC0FE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{ABBAB03E-23B0-4229-8928-0E2F6E94F037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABBAB03E-23B0-4229-8928-0E2F6E94F037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABBAB03E-23B0-4229-8928-0E2F6E94F037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81863494-3261-40F9-80C7-828F37CC0FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81863494-3261-40F9-80C7-828F37CC0FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81863494-3261-40F9-80C7-828F37CC0FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81863494-3261-40F9-80C7-828F37CC0FE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
