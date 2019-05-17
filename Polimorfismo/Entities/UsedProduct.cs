@@ -17,10 +17,7 @@ namespace Polimorfismo.Entities
         }
         public sealed override string PriceTag()
         {
-            StringBuilder sb = new StringBuilder();
-            //sb.AppendLine("PRICE TAGS:");
-            sb.AppendLine($"{Name}(Used) ${Price.ToString("F2", CultureInfo.InvariantCulture)} (Manufacture date: ${ManufactureDate.ToString("dd/MM/yyyy")}");
-            return sb.ToString();
+            return Name + " (Used) $ " + Price.ToString("F2", CultureInfo.InvariantCulture) + " (Manufacture date: " + ManufactureDate.ToString("dd/MM/yyyy") +")";
         }
     }
 }

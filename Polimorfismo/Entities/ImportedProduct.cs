@@ -16,10 +16,7 @@ namespace Polimorfismo.Entities
 
         public sealed override string PriceTag()
         {
-            StringBuilder sb = new StringBuilder();
-            //sb.AppendLine("PRICE TAGS:");
-            sb.AppendLine($"{Name} ${Price.ToString("F2", CultureInfo.InvariantCulture)} (Customs fee: ${CustomsFee.ToString("F2", CultureInfo.InvariantCulture)}");
-            return sb.ToString();
+            return Name + " $" + TotalPrice().ToString("F2", CultureInfo.InvariantCulture) + " (Customs fee: $" + CustomsFee.ToString("F2", CultureInfo.InvariantCulture) + ")";
         }
 
         public double TotalPrice()

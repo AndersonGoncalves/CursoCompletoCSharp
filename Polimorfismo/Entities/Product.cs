@@ -19,10 +19,7 @@ namespace Polimorfismo.Entities
 
         public virtual string PriceTag()
         {
-            StringBuilder sb = new StringBuilder();
-            //sb.AppendLine("PRICE TAGS:");
-            sb.AppendLine($"{Name} ${Price.ToString("F2", CultureInfo.InvariantCulture)}");
-            return sb.ToString();
+            return Name + " $" + Price.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
