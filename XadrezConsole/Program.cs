@@ -1,7 +1,6 @@
 ﻿using System;
-using Board;
 using Chess;
-using Board.Enums;
+using Board;
 using Board.Exception;
 
 namespace XadrezConsole
@@ -12,14 +11,23 @@ namespace XadrezConsole
         {
             try
             {
-                Tabuleiro Tabuleiro = new Tabuleiro();
+                PartidaDeXadrez PartidaDeXadrez = new PartidaDeXadrez();
+               
+               while (!PartidaDeXadrez.Terminada)
+                {
+                    Console.Clear();
+                    Tela.ImprimirTabuleito(PartidaDeXadrez.Tabuleiro);
 
-                Tabuleiro.ColocarPeca(new Rei(Tabuleiro, Cor.Preto), new Posicao(0, 0));
-                Tabuleiro.ColocarPeca(new Rei(Tabuleiro, Cor.Preto), new Posicao(1, 3));
-                Tabuleiro.ColocarPeca(new Rei(Tabuleiro, Cor.Branco), new Posicao(2, 4));
-                Tabuleiro.ColocarPeca(new Rei(Tabuleiro, Cor.Preto), new Posicao(5, 2));
+                    Console.WriteLine();
 
-                Tela.ImprimirTabuleito(Tabuleiro);
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+
+                    PartidaDeXadrez.ExecutarMovimento(origem, destino);
+                }
             }
             catch (TabuleiroException e)
             {

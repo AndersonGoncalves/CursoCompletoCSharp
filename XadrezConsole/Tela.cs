@@ -1,6 +1,7 @@
 ﻿using System;
 using Board;
 using Board.Enums;
+using Chess;
 
 namespace XadrezConsole
 {
@@ -38,7 +39,14 @@ namespace XadrezConsole
                 Console.Write(peca);
                 Console.ForegroundColor = aux;
             }
+        }
 
+        public static PosicaoXadrez LerPosicaoXadrez()
+        {
+            string pos = Console.ReadLine();
+            char coluna = pos[0];
+            int linha = int.Parse(pos[1].ToString());
+            return new PosicaoXadrez(coluna, linha);
         }
     }
 }

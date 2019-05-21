@@ -39,7 +39,20 @@ namespace Board
                 throw new TabuleiroException("Já existe peça nessa posição!");
 
             Pecas[posicao.Linha, posicao.Coluna] = peca;
-            peca.Posicao = posicao;
+            Pecas[posicao.Linha, posicao.Coluna].Posicao = posicao;
+        }
+
+        public Peca RetirarPeca(Posicao posicao)
+        {
+            if (Pecas[posicao.Linha, posicao.Coluna] == null)
+            {
+                return null;
+            }
+
+            Peca pecaAuxiliar = Pecas[posicao.Linha, posicao.Coluna];
+            pecaAuxiliar.Posicao = null;
+            Pecas[posicao.Linha, posicao.Coluna] = null;
+            return pecaAuxiliar;
         }
     }
 }
