@@ -21,13 +21,13 @@ namespace Board
             Pecas = new Peca[Linhas, Colunas];
         }
 
-        public void ValidarPosicao(Posicao posicao)
+        private void ValidarPosicao(Posicao posicao)
         {
             if (posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas)
                 throw new TabuleiroException("Posição inválida!");
         }
 
-        public bool ExistePeca(Posicao posicao)
+        private bool ExistePeca(Posicao posicao)
         {
             ValidarPosicao(posicao);
             return Pecas[posicao.Linha, posicao.Coluna] != null;
@@ -45,9 +45,7 @@ namespace Board
         public Peca RetirarPeca(Posicao posicao)
         {
             if (Pecas[posicao.Linha, posicao.Coluna] == null)
-            {
                 return null;
-            }
 
             Peca pecaAuxiliar = Pecas[posicao.Linha, posicao.Coluna];
             pecaAuxiliar.Posicao = null;
