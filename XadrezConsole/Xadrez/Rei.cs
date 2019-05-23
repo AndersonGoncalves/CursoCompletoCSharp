@@ -11,8 +11,17 @@ namespace Chess
 
         public override bool[,] MovimentosPossiveis()
         {
-            //TODO:
-            throw new System.NotImplementedException();
+            bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
+
+            Posicao posicao = new Posicao();
+
+            //acima
+            posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna);
+            if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
+                matriz[posicao.Linha, posicao.Coluna] = true;
+
+
+            return matriz;
         }
 
         public override string ToString()
