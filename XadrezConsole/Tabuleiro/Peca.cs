@@ -2,7 +2,7 @@
 
 namespace Board
 {
-    public class Peca
+    public abstract class Peca
     {
         public Tabuleiro Tabuleiro { get; protected set; }
         public Posicao Posicao { get; set; }
@@ -21,5 +21,13 @@ namespace Board
         {
             QtdeMovimentos++;
         }
+
+        protected bool PodeMover(Posicao posicao)
+        {
+            Peca peca = Tabuleiro.Pecas[posicao.Linha, posicao.Coluna];
+            return peca == null || peca.Cor != Cor;
+        }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }
