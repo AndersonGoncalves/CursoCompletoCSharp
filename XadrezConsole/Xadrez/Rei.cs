@@ -15,8 +15,8 @@ namespace Chess
 
             Posicao posicao = new Posicao();
 
-            //acima
-            posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna);
+            //acima            
+            posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
                 matriz[posicao.Linha, posicao.Coluna] = true;
 
