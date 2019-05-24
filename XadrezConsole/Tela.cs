@@ -9,24 +9,36 @@ namespace XadrezConsole
     {
         public static void ImprimirTabuleito(Tabuleiro tabuleiro)
         {
+            ConsoleColor aux = Console.ForegroundColor;
+
             for (int i = 0; i < tabuleiro.Linhas; i++)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(8 - i + " ");
+                Console.ForegroundColor = aux;
+
                 for (int j = 0; j < tabuleiro.Colunas; j++)
                     ImprimirPeca(tabuleiro.Pecas[i, j]);
                 Console.WriteLine();
             }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("  a b c d e f g h");
+            Console.ForegroundColor = aux;            
         }
 
         public static void ImprimirTabuleito(Tabuleiro tabuleiro, bool[,] posicoesPossiveis)
         {
             ConsoleColor fundoOriginal = Console.BackgroundColor;
             ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
+            ConsoleColor aux = Console.ForegroundColor;
 
             for (int i = 0; i < tabuleiro.Linhas; i++)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;                
                 Console.Write(8 - i + " ");
+                Console.ForegroundColor = aux;
+                
                 for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
                     if (posicoesPossiveis[i, j])
@@ -39,8 +51,11 @@ namespace XadrezConsole
                 }
                 Console.WriteLine();
             }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("  a b c d e f g h");
             Console.BackgroundColor = fundoOriginal;
+            Console.ForegroundColor = aux;
         }
 
         private static void ImprimirPeca(Peca peca)
