@@ -24,7 +24,7 @@ namespace Board
 
         protected bool PodeMover(Posicao posicao)
         {
-            Peca peca = Tabuleiro.Pecas[posicao.Linha, posicao.Coluna];
+            Peca peca = Tabuleiro.GetPeca(posicao);
             return peca == null || peca.Cor != Cor;
         }
 

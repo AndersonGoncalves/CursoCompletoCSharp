@@ -5,14 +5,14 @@ namespace Chess
 {
     public class PartidaDeXadrez
     {
-        private int _turno;
         public Tabuleiro Tabuleiro { get; private set; }
-        public Cor JogadorAtual { get; set; }
-        public bool Terminada { get; set; }
-        
+        public Cor JogadorAtual { get; private set; }
+        public int Turno { get; private set; }
+        public bool Terminada { get; private set; }
+
         public PartidaDeXadrez()
         {
-            _turno = 1;
+            Turno = 1;
             Tabuleiro = new Tabuleiro();
             JogadorAtual = Cor.Branco;
             Terminada = false;
@@ -26,6 +26,22 @@ namespace Chess
             Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
             Tabuleiro.ColocarPeca(peca, destino);
         }
+
+        public void RealizaJogada(Posicao origem, Posicao destino)
+        {
+            ExecutarMovimento(origem, destino);
+            Turno++;
+            MudaJogador();
+        }
+
+        private void MudaJogador()
+        {
+            if (JogadorAtual == Cor.Branco)
+                JogadorAtual = Cor.Preto;
+            else
+                JogadorAtual = Cor.Branco;
+        }
+
 
         private void ColocarPecasNoTabuleiro()
         {

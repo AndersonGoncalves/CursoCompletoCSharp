@@ -11,8 +11,55 @@ namespace Chess
 
         public override bool[,] MovimentosPossiveis()
         {
-            //TODO:
-            throw new System.NotImplementedException();
+            bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
+
+            Posicao posicaoAux = new Posicao();
+
+            #region Movimentos para esquerda
+            posicaoAux.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            while (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+            {
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+                if (Tabuleiro.GetPeca(posicaoAux) != null && Tabuleiro.GetPeca(posicaoAux).Cor != Cor)
+                    break;
+                posicaoAux.Coluna -= 1;
+            }
+            #endregion
+
+            #region Movimentos para direita
+            posicaoAux.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+            while (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+            {
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+                if (Tabuleiro.GetPeca(posicaoAux) != null && Tabuleiro.GetPeca(posicaoAux).Cor != Cor)
+                    break;
+                posicaoAux.Coluna += 1;
+            }
+            #endregion
+
+            #region Movimentos para cima
+            posicaoAux.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            while (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+            {
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+                if (Tabuleiro.GetPeca(posicaoAux) != null && Tabuleiro.GetPeca(posicaoAux).Cor != Cor)
+                    break;
+                posicaoAux.Linha -= 1;
+            }
+            #endregion
+
+            #region Movimentos para baixo
+            posicaoAux.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+            while (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+            {
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+                if (Tabuleiro.GetPeca(posicaoAux) != null && Tabuleiro.GetPeca(posicaoAux).Cor != Cor)
+                    break;
+                posicaoAux.Linha += 1;
+            }
+            #endregion
+
+            return matriz;
         }
 
         public override string ToString()
