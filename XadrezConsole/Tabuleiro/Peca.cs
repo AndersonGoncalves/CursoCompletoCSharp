@@ -17,16 +17,16 @@ namespace Board
             QtdeMovimentos = 0;
         }
 
-        public void IncrementarQtdeMovimentos()
-        {
-            QtdeMovimentos++;
-        }
-
         protected bool PodeMover(Posicao posicao)
         {
             Peca peca = Tabuleiro.GetPeca(posicao);
             return peca == null || peca.Cor != Cor;
         }
+
+        public void IncrementarQtdeMovimentos()
+        {
+            QtdeMovimentos++;
+        }        
 
         public bool ExisteMovimentosPossiveis()
         {

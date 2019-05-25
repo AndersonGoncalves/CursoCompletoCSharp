@@ -27,8 +27,8 @@ namespace Board
         }
 
         public bool PosicaoValida(Posicao posicao)
-        {
-            return (!(posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas));
+        {            
+            return (posicao.Linha >= 0 && posicao.Linha < Linhas && posicao.Coluna >= 0 && posicao.Coluna < Colunas);
         }
 
         private void ValidarPosicao(Posicao posicao)
@@ -48,7 +48,7 @@ namespace Board
             if (ExistePeca(posicao))
                 throw new TabuleiroException("Já existe peça nessa posição!");
 
-            Pecas[posicao.Linha, posicao.Coluna] = peca;            
+            Pecas[posicao.Linha, posicao.Coluna] = peca;
             Pecas[posicao.Linha, posicao.Coluna].Posicao = posicao;
         }
 
