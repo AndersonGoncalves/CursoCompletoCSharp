@@ -9,10 +9,15 @@ namespace Chess
         {
         }
 
+        private bool PodeMover(Posicao posicao)
+        {
+            Peca peca = Tabuleiro.GetPeca(posicao);
+            return peca == null || peca.Cor != Cor;
+        }
+
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
-
             Posicao posicaoAux = new Posicao();
 
             #region Movimentos uma linha acima

@@ -7,13 +7,7 @@ namespace Board
         public int Linhas { get; set; }
         public int Colunas { get; set; }
         public Peca[,] Pecas { get; private set; }
-
-        public Tabuleiro()
-        {
-            Linhas = 8;
-            Colunas = 8;
-            Pecas = new Peca[Linhas, Colunas];
-        }
+        
         public Tabuleiro(int linhas, int colunas)
         {
             Linhas = linhas;
@@ -27,19 +21,15 @@ namespace Board
         }
 
         public bool PosicaoValida(Posicao posicao)
-        {            
-            return (posicao.Linha >= 0 && posicao.Linha < Linhas && posicao.Coluna >= 0 && posicao.Coluna < Colunas);
-        }
-
-        private void ValidarPosicao(Posicao posicao)
         {
-            if (!PosicaoValida(posicao))
-                throw new TabuleiroException("Posição inválida!");
+            return (posicao.Linha >= 0 && posicao.Linha < Linhas && posicao.Coluna >= 0 && posicao.Coluna < Colunas);
         }
 
         private bool ExistePeca(Posicao posicao)
         {
-            ValidarPosicao(posicao);
+            if (!PosicaoValida(posicao))
+                throw new TabuleiroException("Posição inválida!");
+
             return GetPeca(posicao) != null;
         }
 
@@ -56,11 +46,13 @@ namespace Board
         {
             if (GetPeca(posicao) == null)
                 return null;
-
-            Peca pecaAuxiliar = GetPeca(posicao);
-            pecaAuxiliar.Posicao = null;
-            Pecas[posicao.Linha, posicao.Coluna] = null;
-            return pecaAuxiliar;
+            else
+            {
+                Peca pecaAuxiliar = GetPeca(posicao);
+                pecaAuxiliar.Posicao = null;
+                Pecas[posicao.Linha, posicao.Coluna] = null;
+                return pecaAuxiliar;
+            }
         }
     }
 }

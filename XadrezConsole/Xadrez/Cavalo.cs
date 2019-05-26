@@ -9,11 +9,51 @@ namespace Chess
         {
         }
 
+        private bool PodeMover(Posicao posicao)
+        {
+            Peca peca = Tabuleiro.GetPeca(posicao);
+            return peca == null || peca.Cor != Cor;
+        }
+
         public override bool[,] MovimentosPossiveis()
         {
-            //TODO:            
             bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
-            matriz[0, 0] = true;
+            Posicao posicaoAux = new Posicao();
+
+            #region Todos Movimentos 
+            posicaoAux.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 2);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha - 2, Posicao.Coluna - 1);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha - 2, Posicao.Coluna + 1);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 2);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 2);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha + 2, Posicao.Coluna + 1);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha + 2, Posicao.Coluna - 1);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+
+            posicaoAux.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 2);
+            if (Tabuleiro.PosicaoValida(posicaoAux) && PodeMover(posicaoAux))
+                matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
+            #endregion
+
             return matriz;
         }
 

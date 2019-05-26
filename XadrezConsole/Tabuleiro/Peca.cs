@@ -17,12 +17,6 @@ namespace Board
             QtdeMovimentos = 0;
         }
 
-        protected bool PodeMover(Posicao posicao)
-        {
-            Peca peca = Tabuleiro.GetPeca(posicao);
-            return peca == null || peca.Cor != Cor;
-        }
-
         public void IncrementarQtdeMovimentos()
         {
             QtdeMovimentos++;
