@@ -12,12 +12,10 @@ namespace Chess
             Coluna = coluna;
             Linha = linha;
         }
-
         public Posicao ToPosicao()
         {
             return new Posicao(8 - Linha, Coluna - 'a');
         }
-
         public override string ToString()
         {
             return Coluna.ToString() + Linha.ToString();

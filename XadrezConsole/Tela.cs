@@ -20,12 +20,12 @@ namespace XadrezConsole
         {
             Console.WriteLine("Peças capturadas:");
             Console.Write("Brancas: ");
-            ImprimirConjunto(partidaXadrez.PecasCapturadasNaCor(Cor.Branco));
+            ImprimirConjunto(partidaXadrez.PecasCapturadasDaCor(Cor.Branco));
             Console.Write("Pretas: ");
 
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;
-            ImprimirConjunto(partidaXadrez.PecasCapturadasNaCor(Cor.Preto));
+            ImprimirConjunto(partidaXadrez.PecasCapturadasDaCor(Cor.Preto));
             Console.ForegroundColor = aux;
             Console.WriteLine();
         }

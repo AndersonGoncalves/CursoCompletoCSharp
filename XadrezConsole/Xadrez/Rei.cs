@@ -8,13 +8,11 @@ namespace Chess
         public Rei(Tabuleiro tabuleiro, Cor Cor) : base(tabuleiro, Cor)
         {
         }
-
         private bool PodeMover(Posicao posicao)
         {
             Peca peca = Tabuleiro.GetPeca(posicao);
             return peca == null || peca.Cor != Cor;
         }
-
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
@@ -60,7 +58,6 @@ namespace Chess
 
             return matriz;
         }
-
         public override string ToString()
         {
             return "R";

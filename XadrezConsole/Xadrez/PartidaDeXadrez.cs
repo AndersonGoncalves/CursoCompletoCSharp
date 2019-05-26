@@ -23,13 +23,11 @@ namespace Chess
             Terminada = false;            
             ColocarPecasNoTabuleiro();
         }
-
         private void ColocarNovaPeca(char coluna, int linha, Peca peca)
         {
             Tabuleiro.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).ToPosicao());
             PecasEmJogo.Add(peca);
         }
-
         private void ColocarPecasNoTabuleiro()
         {
             ColocarNovaPeca('a', 1, new Torre(Tabuleiro, Cor.Branco));
@@ -65,7 +63,6 @@ namespace Chess
             ColocarNovaPeca('g', 7, new Peao(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('h', 7, new Peao(Tabuleiro, Cor.Preto));
         }
-
         private Cor GetAdversario(Cor cor)
         {
             if (cor == Cor.Branco)
@@ -73,24 +70,22 @@ namespace Chess
             else
                 return Cor.Branco;
         }
-
         private Peca Rei(Cor cor)
         {
-            foreach (Peca item in PecasEmJogoNaCor(cor))
+            foreach (Peca item in PecasEmJogoDaCor(cor))
             {
                 if (item is Rei)
                     return item;
             }
             return null;
         }
-
         public bool ReiEstaEmCheque(Cor cor)
         {
             Peca rei = Rei(cor);
             if (rei == null)
                 throw new TabuleiroException("Não tem rei da cor " + cor + " no tabuleiro!");
 
-            foreach (Peca item in PecasEmJogoNaCor(GetAdversario(cor)))
+            foreach (Peca item in PecasEmJogoDaCor(GetAdversario(cor)))
             {
                 bool[,] matriz = item.MovimentosPossiveis();
                 if (matriz[rei.Posicao.Linha, rei.Posicao.Coluna])
@@ -98,13 +93,12 @@ namespace Chess
             }
             return false;
         }
-
         public bool TesteXequeMate(Cor cor)
         {
             if (!ReiEstaEmCheque(cor))
                 return false;
 
-            foreach (Peca item in PecasEmJogoNaCor(cor))
+            foreach (Peca item in PecasEmJogoDaCor(cor))
             {
                 bool[,] matriz = item.MovimentosPossiveis();
                 for (int i = 0; i < Tabuleiro.Linhas; i++)
@@ -137,12 +131,10 @@ namespace Chess
 
             return pecaCapturada;
         }
-
         private void PassaTurno()
         {
             Turno++;
         }
-
         private void MudaJogador()
         {
             if (JogadorAtual == Cor.Branco)
@@ -150,7 +142,6 @@ namespace Chess
             else
                 JogadorAtual = Cor.Branco;
         }
-
         private void DesFazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
         {
             Peca pecaDestino = Tabuleiro.RetirarPeca(destino);
@@ -162,7 +153,6 @@ namespace Chess
             }
             Tabuleiro.ColocarPeca(pecaDestino, origem);
         }
-
         public void RealizarJogada(Posicao origem, Posicao destino)
         {
             Peca pecaCapturada = ExecutaMovimento(origem, destino);
@@ -182,8 +172,7 @@ namespace Chess
                 PassaTurno();
                 MudaJogador();
             }
-        }        
-
+        }
         public void ValidarPosicaoDeOrigem(Posicao posicao)
         {
             if (Tabuleiro.GetPeca(posicao) == null)
@@ -195,14 +184,12 @@ namespace Chess
             if (!Tabuleiro.GetPeca(posicao).ExisteMovimentosPossiveis())
                 throw new TabuleiroException("Não há movimentos possíveis para peça de origem escolhida!");
         }
-
         public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
         {
             if (!Tabuleiro.GetPeca(origem).MovimentoPossivel(destino))
                 throw new TabuleiroException("Posição de destino inválida!");
         }
-
-        public HashSet<Peca> PecasCapturadasNaCor(Cor cor)
+        public HashSet<Peca> PecasCapturadasDaCor(Cor cor)
         {
             HashSet<Peca> aux = new HashSet<Peca>();
             foreach (Peca item in PecasCapturadas)
@@ -212,8 +199,7 @@ namespace Chess
             }
             return aux;
         }
-
-        public HashSet<Peca> PecasEmJogoNaCor(Cor cor)
+        public HashSet<Peca> PecasEmJogoDaCor(Cor cor)
         {
             HashSet<Peca> aux = new HashSet<Peca>();
             foreach (Peca item in PecasEmJogo)
@@ -221,7 +207,7 @@ namespace Chess
                 if (item.Cor == cor)
                     aux.Add(item);
             }
-            aux.ExceptWith(PecasCapturadasNaCor(cor));
+            aux.ExceptWith(PecasCapturadasDaCor(cor));
             return aux;
         }        
     }

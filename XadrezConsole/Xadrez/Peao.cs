@@ -8,7 +8,6 @@ namespace Chess
         public Peao(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
         {
         }
-
         private bool ExisteAdversario(Posicao posicao)
         {
             Peca peca = Tabuleiro.GetPeca(posicao);
@@ -18,12 +17,12 @@ namespace Chess
         {
             return Tabuleiro.GetPeca(posicao) == null;
         }
-
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
             Posicao posicaoAux = new Posicao();
 
+            #region Movimentos
             if (Cor == Cor.Branco)
             {
                 posicaoAux.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
@@ -59,11 +58,11 @@ namespace Chess
                 posicaoAux.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
                 if (Tabuleiro.PosicaoValida(posicaoAux) && ExisteAdversario(posicaoAux))
                     matriz[posicaoAux.Linha, posicaoAux.Coluna] = true;
-            }            
+            }
+            #endregion
 
             return matriz;
         }
-
         public override string ToString()
         {
             return "P";

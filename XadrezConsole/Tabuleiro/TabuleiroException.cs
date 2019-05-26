@@ -6,7 +6,6 @@ namespace Board.Exception
     {
         public TabuleiroException(string message) : base(message)
         {
-
         }
     }
 }

@@ -13,7 +13,6 @@
             Linha = linha;
             Coluna = coluna;
         }
-
         public void DefinirValores(int linha, int coluna)
         {
             Linha = linha;

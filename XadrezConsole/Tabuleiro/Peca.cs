@@ -16,17 +16,14 @@ namespace Board
             Cor = cor;
             QtdeMovimentos = 0;
         }
-
         public void IncrementarQtdeMovimentos()
         {
             QtdeMovimentos++;
         }
-
         public void DecrementarQtdeMovimentos()
         {
             QtdeMovimentos--;
         }
-
         public bool ExisteMovimentosPossiveis()
         {
             bool[,] matriz = MovimentosPossiveis();
@@ -40,12 +37,10 @@ namespace Board
             }
             return false;
         }
-
         public bool MovimentoPossivel(Posicao posicao)
         {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
-        }            
-
+        }
         public abstract bool[,] MovimentosPossiveis();
     }
 }

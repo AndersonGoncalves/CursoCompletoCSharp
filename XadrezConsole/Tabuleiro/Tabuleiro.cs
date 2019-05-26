@@ -14,17 +14,14 @@ namespace Board
             Colunas = colunas;
             Pecas = new Peca[Linhas, Colunas];
         }
-
         public Peca GetPeca(Posicao posicao)
         {
             return Pecas[posicao.Linha, posicao.Coluna];
         }
-
         public bool PosicaoValida(Posicao posicao)
         {
             return (posicao.Linha >= 0 && posicao.Linha < Linhas && posicao.Coluna >= 0 && posicao.Coluna < Colunas);
         }
-
         private bool ExistePeca(Posicao posicao)
         {
             if (!PosicaoValida(posicao))
@@ -32,7 +29,6 @@ namespace Board
 
             return GetPeca(posicao) != null;
         }
-
         public void ColocarPeca(Peca peca, Posicao posicao)
         {
             if (ExistePeca(posicao))
@@ -41,7 +37,6 @@ namespace Board
             Pecas[posicao.Linha, posicao.Coluna] = peca;
             Pecas[posicao.Linha, posicao.Coluna].Posicao = posicao;
         }
-
         public Peca RetirarPeca(Posicao posicao)
         {
             if (GetPeca(posicao) == null)

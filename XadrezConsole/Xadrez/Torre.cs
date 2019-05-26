@@ -8,7 +8,6 @@ namespace Chess
         public Torre(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
         {
         }
-
         private bool PodeMover(Posicao posicao)
         {
             Peca peca = Tabuleiro.GetPeca(posicao);
@@ -65,7 +64,6 @@ namespace Chess
 
             return matriz;
         }
-
         public override string ToString()
         {
             return "T";
