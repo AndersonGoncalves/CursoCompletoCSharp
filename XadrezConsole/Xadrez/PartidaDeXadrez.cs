@@ -72,46 +72,46 @@ namespace Chess
         }
         private Peca Rei(Cor cor)
         {
-            foreach (Peca item in PecasEmJogoDaCor(cor))
+            foreach (Peca peca in PecasEmJogoDaCor(cor))
             {
-                if (item is Rei)
-                    return item;
+                if (peca is Rei)
+                    return peca;
             }
             return null;
         }
-        public bool ReiEstaEmCheque(Cor cor)
+        private bool ReiEstaEmXeque(Cor cor)
         {
             Peca rei = Rei(cor);
             if (rei == null)
                 throw new TabuleiroException("Não tem rei da cor " + cor + " no tabuleiro!");
 
-            foreach (Peca item in PecasEmJogoDaCor(GetAdversario(cor)))
+            foreach (Peca peca in PecasEmJogoDaCor(GetAdversario(cor)))
             {
-                bool[,] matriz = item.MovimentosPossiveis();
+                bool[,] matriz = peca.MovimentosPossiveis();
                 if (matriz[rei.Posicao.Linha, rei.Posicao.Coluna])
                     return true;
             }
             return false;
         }
-        public bool TesteXequeMate(Cor cor)
+        private bool TesteXequeMate(Cor cor)
         {
-            if (!ReiEstaEmCheque(cor))
+            if (!ReiEstaEmXeque(cor))
                 return false;
 
-            foreach (Peca item in PecasEmJogoDaCor(cor))
+            foreach (Peca peca in PecasEmJogoDaCor(cor))
             {
-                bool[,] matriz = item.MovimentosPossiveis();
+                bool[,] matriz = peca.MovimentosPossiveis();
                 for (int i = 0; i < Tabuleiro.Linhas; i++)
                 {
                     for (int j = 0; j < Tabuleiro.Colunas; j++)
                     {
                         if (matriz[i, j])
                         {
-                            Posicao origem = item.Posicao;
+                            Posicao origem = peca.Posicao;
                             Posicao destino = new Posicao(i, j);
                             Peca pecaCapturada = ExecutaMovimento(origem, destino);
-                            bool testaXeque = ReiEstaEmCheque(cor);
-                            DesFazMovimento(origem, destino, pecaCapturada);
+                            bool testaXeque = ReiEstaEmXeque(cor);
+                            DesfazMovimento(origem, destino, pecaCapturada);
                             if (!testaXeque)
                                 return false;
                         }
@@ -120,7 +120,7 @@ namespace Chess
             }
             return true;
         }
-        private void ExecutaRoquePequeno(Posicao origem, Posicao destino)
+        private void ExecutaRoquePequeno(Posicao origem)
         {
             Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna + 3);
             Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna + 1);
@@ -128,7 +128,7 @@ namespace Chess
             torre.IncrementarQtdeMovimentos();
             Tabuleiro.ColocarPeca(torre, destinoTorre);
         }
-        private void ExecutaRoqueGrande(Posicao origem, Posicao destino)
+        private void ExecutaRoqueGrande(Posicao origem)
         {
             Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna - 4);
             Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna - 1);
@@ -146,10 +146,10 @@ namespace Chess
                 PecasCapturadas.Add(pecaCapturada);
 
             if (peca is Rei && destino.Coluna == origem.Coluna + 2)
-                ExecutaRoquePequeno(origem, destino);
+                ExecutaRoquePequeno(origem);
 
             if (peca is Rei && destino.Coluna == origem.Coluna - 2)
-                ExecutaRoqueGrande(origem, destino);
+                ExecutaRoqueGrande(origem);
 
             return pecaCapturada;
         }
@@ -164,7 +164,7 @@ namespace Chess
             else
                 JogadorAtual = Cor.Branco;
         }
-        private void DesFazRoquePequeno(Posicao origem, Posicao destino)
+        private void DesfazRoquePequeno(Posicao origem)
         {
             Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna + 3);
             Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna + 1);
@@ -172,7 +172,7 @@ namespace Chess
             torre.DecrementarQtdeMovimentos();
             Tabuleiro.ColocarPeca(torre, origemTorre);
         }
-        private void DesFazRoqueGrande(Posicao origem, Posicao destino)
+        private void DesfazRoqueGrande(Posicao origem)
         {
             Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna - 4);
             Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna - 1);
@@ -180,7 +180,7 @@ namespace Chess
             torre.DecrementarQtdeMovimentos();
             Tabuleiro.ColocarPeca(torre, origemTorre);
         }
-        private void DesFazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
+        private void DesfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
         {
             Peca pecaDestino = Tabuleiro.RetirarPeca(destino);
             pecaDestino.DecrementarQtdeMovimentos();
@@ -192,22 +192,22 @@ namespace Chess
             Tabuleiro.ColocarPeca(pecaDestino, origem);
 
             if (pecaDestino is Rei && destino.Coluna == origem.Coluna + 2)
-                DesFazRoquePequeno(origem, destino);
+                DesfazRoquePequeno(origem);
 
             if (pecaDestino is Rei && destino.Coluna == origem.Coluna - 2)
-                DesFazRoqueGrande(origem, destino);
+                DesfazRoqueGrande(origem);
         }
         public void RealizarJogada(Posicao origem, Posicao destino)
         {
             Peca pecaCapturada = ExecutaMovimento(origem, destino);
 
-            if (ReiEstaEmCheque(JogadorAtual))
+            if (ReiEstaEmXeque(JogadorAtual))
             {
-                DesFazMovimento(origem, destino, pecaCapturada);
+                DesfazMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
 
-            Xeque = ReiEstaEmCheque(GetAdversario(JogadorAtual));
+            Xeque = ReiEstaEmXeque(GetAdversario(JogadorAtual));
 
             if (TesteXequeMate(GetAdversario(JogadorAtual)))
                 Terminada = true;
@@ -236,20 +236,20 @@ namespace Chess
         public HashSet<Peca> PecasCapturadasDaCor(Cor cor)
         {
             HashSet<Peca> aux = new HashSet<Peca>();
-            foreach (Peca item in PecasCapturadas)
+            foreach (Peca peca in PecasCapturadas)
             {
-                if (item.Cor == cor)
-                    aux.Add(item);
+                if (peca.Cor == cor)
+                    aux.Add(peca);
             }
             return aux;
         }
         public HashSet<Peca> PecasEmJogoDaCor(Cor cor)
         {
             HashSet<Peca> aux = new HashSet<Peca>();
-            foreach (Peca item in PecasEmJogo)
+            foreach (Peca peca in PecasEmJogo)
             {
-                if (item.Cor == cor)
-                    aux.Add(item);
+                if (peca.Cor == cor)
+                    aux.Add(peca);
             }
             aux.ExceptWith(PecasCapturadasDaCor(cor));
             return aux;
