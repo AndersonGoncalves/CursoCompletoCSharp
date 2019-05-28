@@ -34,7 +34,7 @@ namespace Chess
             ColocarNovaPeca('b', 1, new Cavalo(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('c', 1, new Bispo(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('d', 1, new Dama(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('e', 1, new Rei(Tabuleiro, Cor.Branco));
+            ColocarNovaPeca('e', 1, new Rei(Tabuleiro, Cor.Branco, this));
             ColocarNovaPeca('f', 1, new Bispo(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('g', 1, new Cavalo(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('h', 1, new Torre(Tabuleiro, Cor.Branco));
@@ -50,7 +50,7 @@ namespace Chess
             ColocarNovaPeca('b', 8, new Cavalo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('c', 8, new Bispo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('d', 8, new Dama(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('e', 8, new Rei(Tabuleiro, Cor.Preto));
+            ColocarNovaPeca('e', 8, new Rei(Tabuleiro, Cor.Preto, this));
             ColocarNovaPeca('f', 8, new Bispo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('g', 8, new Cavalo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('h', 8, new Torre(Tabuleiro, Cor.Preto));
@@ -120,6 +120,22 @@ namespace Chess
             }
             return true;
         }
+        private void ExecutaRoquePequeno(Posicao origem, Posicao destino)
+        {
+            Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna + 3);
+            Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna + 1);
+            Peca torre = Tabuleiro.RetirarPeca(origemTorre);
+            torre.IncrementarQtdeMovimentos();
+            Tabuleiro.ColocarPeca(torre, destinoTorre);
+        }
+        private void ExecutaRoqueGrande(Posicao origem, Posicao destino)
+        {
+            Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna - 4);
+            Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna - 1);
+            Peca torre = Tabuleiro.RetirarPeca(origemTorre);
+            torre.IncrementarQtdeMovimentos();
+            Tabuleiro.ColocarPeca(torre, destinoTorre);
+        }
         private Peca ExecutaMovimento(Posicao origem, Posicao destino)
         {
             Peca peca = Tabuleiro.RetirarPeca(origem);
@@ -128,6 +144,12 @@ namespace Chess
             Tabuleiro.ColocarPeca(peca, destino);
             if (pecaCapturada != null)
                 PecasCapturadas.Add(pecaCapturada);
+
+            if (peca is Rei && destino.Coluna == origem.Coluna + 2)
+                ExecutaRoquePequeno(origem, destino);
+
+            if (peca is Rei && destino.Coluna == origem.Coluna - 2)
+                ExecutaRoqueGrande(origem, destino);
 
             return pecaCapturada;
         }
@@ -142,6 +164,22 @@ namespace Chess
             else
                 JogadorAtual = Cor.Branco;
         }
+        private void DesFazRoquePequeno(Posicao origem, Posicao destino)
+        {
+            Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna + 3);
+            Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna + 1);
+            Peca torre = Tabuleiro.RetirarPeca(destinoTorre);
+            torre.DecrementarQtdeMovimentos();
+            Tabuleiro.ColocarPeca(torre, origemTorre);
+        }
+        private void DesFazRoqueGrande(Posicao origem, Posicao destino)
+        {
+            Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna - 4);
+            Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna - 1);
+            Peca torre = Tabuleiro.RetirarPeca(destinoTorre);
+            torre.DecrementarQtdeMovimentos();
+            Tabuleiro.ColocarPeca(torre, origemTorre);
+        }
         private void DesFazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
         {
             Peca pecaDestino = Tabuleiro.RetirarPeca(destino);
@@ -152,6 +190,12 @@ namespace Chess
                 PecasCapturadas.Remove(pecaCapturada);
             }
             Tabuleiro.ColocarPeca(pecaDestino, origem);
+
+            if (pecaDestino is Rei && destino.Coluna == origem.Coluna + 2)
+                DesFazRoquePequeno(origem, destino);
+
+            if (pecaDestino is Rei && destino.Coluna == origem.Coluna - 2)
+                DesFazRoqueGrande(origem, destino);
         }
         public void RealizarJogada(Posicao origem, Posicao destino)
         {
