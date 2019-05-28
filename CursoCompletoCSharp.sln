@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Polimorfismo", "Polimorfism
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstrato", "Abstrato\Abstrato.csproj", "{89B6B7DA-D833-40A9-BA61-3E9E404DF546}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exception", "Exception\Exception.csproj", "{A6A426FE-3111-44BF-971D-B76252DC9730}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exception", "Exception\Exception.csproj", "{A6A426FE-3111-44BF-971D-B76252DC9730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XadrezConsole", "XadrezConsole\XadrezConsole.csproj", "{45E2EE04-F74D-411A-B38C-F59F8EEEA6E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XadrezConsole", "XadrezConsole\XadrezConsole.csproj", "{45E2EE04-F74D-411A-B38C-F59F8EEEA6E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conjunto", "Conjunto\Conjunto.csproj", "{F33735AA-F772-4743-9685-7CCB2E5710CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{45E2EE04-F74D-411A-B38C-F59F8EEEA6E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45E2EE04-F74D-411A-B38C-F59F8EEEA6E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45E2EE04-F74D-411A-B38C-F59F8EEEA6E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33735AA-F772-4743-9685-7CCB2E5710CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33735AA-F772-4743-9685-7CCB2E5710CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33735AA-F772-4743-9685-7CCB2E5710CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33735AA-F772-4743-9685-7CCB2E5710CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
