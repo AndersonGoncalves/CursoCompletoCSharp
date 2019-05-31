@@ -14,13 +14,15 @@ namespace Chess
         public HashSet<Peca> PecasCapturadas { get; private set; } = new HashSet<Peca>();
         public bool Xeque { get; private set; }
         public bool Terminada { get; private set; }
+        public Peca VulneravelEnPassant { get; private set; }
 
-        public PartidaDeXadrez()
+        public PartidaDeXadrez()    
         {
             Turno = 1;
             Tabuleiro = new Tabuleiro(8, 8);
             JogadorAtual = Cor.Branco;
-            Terminada = false;            
+            Terminada = false;
+            VulneravelEnPassant = null;
             ColocarPecasNoTabuleiro();
         }
         private void ColocarNovaPeca(char coluna, int linha, Peca peca)
@@ -38,14 +40,14 @@ namespace Chess
             ColocarNovaPeca('f', 1, new Bispo(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('g', 1, new Cavalo(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('h', 1, new Torre(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('a', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('b', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('c', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('d', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('e', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('f', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('g', 2, new Peao(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('h', 2, new Peao(Tabuleiro, Cor.Branco));
+            ColocarNovaPeca('a', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('b', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('c', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('d', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('e', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('f', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('g', 2, new Peao(Tabuleiro, Cor.Branco, this));
+            ColocarNovaPeca('h', 2, new Peao(Tabuleiro, Cor.Branco, this));
             ColocarNovaPeca('a', 8, new Torre(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('b', 8, new Cavalo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('c', 8, new Bispo(Tabuleiro, Cor.Preto));
@@ -54,14 +56,14 @@ namespace Chess
             ColocarNovaPeca('f', 8, new Bispo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('g', 8, new Cavalo(Tabuleiro, Cor.Preto));
             ColocarNovaPeca('h', 8, new Torre(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('a', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('b', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('c', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('d', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('e', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('f', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('g', 7, new Peao(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('h', 7, new Peao(Tabuleiro, Cor.Preto));
+            ColocarNovaPeca('a', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('b', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('c', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('d', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('e', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('f', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('g', 7, new Peao(Tabuleiro, Cor.Preto, this));
+            ColocarNovaPeca('h', 7, new Peao(Tabuleiro, Cor.Preto, this));
         }
         private Cor GetAdversario(Cor cor)
         {
@@ -136,6 +138,19 @@ namespace Chess
             torre.IncrementarQtdeMovimentos();
             Tabuleiro.ColocarPeca(torre, destinoTorre);
         }
+        private void ExecutaEnPassant(Peca peca, Peca pecaCapturada, Posicao origem, Posicao destino)
+        {
+            if (origem.Coluna != destino.Coluna && pecaCapturada == null)
+            {
+                Posicao posPeca;
+                if (peca.Cor == Cor.Branco)
+                    posPeca = new Posicao(destino.Linha + 1, destino.Coluna);
+                else
+                    posPeca = new Posicao(destino.Linha - 1, destino.Coluna);
+                pecaCapturada = Tabuleiro.RetirarPeca(posPeca);
+                PecasCapturadas.Add(pecaCapturada);
+            }
+        }
         private Peca ExecutaMovimento(Posicao origem, Posicao destino)
         {
             Peca peca = Tabuleiro.RetirarPeca(origem);
@@ -150,6 +165,9 @@ namespace Chess
 
             if (peca is Rei && destino.Coluna == origem.Coluna - 2)
                 ExecutaRoqueGrande(origem);
+
+            if (peca is Peao)
+                ExecutaEnPassant(peca, pecaCapturada, origem, destino);
 
             return pecaCapturada;
         }
@@ -180,7 +198,20 @@ namespace Chess
             torre.DecrementarQtdeMovimentos();
             Tabuleiro.ColocarPeca(torre, origemTorre);
         }
-        private void DesfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
+        private void DesfazEnPassant(Peca peca, Peca pecaCapturada, Posicao origem, Posicao destino)
+        {
+            if (origem.Coluna != destino.Coluna && pecaCapturada == VulneravelEnPassant)
+            {
+                Peca peao = Tabuleiro.RetirarPeca(destino);
+                Posicao PosPeca;
+                if (peca.Cor == Cor.Branco)
+                    PosPeca = new Posicao(3, destino.Coluna);
+                else
+                    PosPeca = new Posicao(4, destino.Coluna);
+                Tabuleiro.ColocarPeca(peao, PosPeca);
+            }
+        }
+        private  void DesfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
         {
             Peca pecaDestino = Tabuleiro.RetirarPeca(destino);
             pecaDestino.DecrementarQtdeMovimentos();
@@ -196,6 +227,20 @@ namespace Chess
 
             if (pecaDestino is Rei && destino.Coluna == origem.Coluna - 2)
                 DesfazRoqueGrande(origem);
+
+            if (pecaDestino is Peao)
+                DesfazEnPassant(pecaDestino, pecaCapturada, origem, destino);
+        }
+        private void PromocaoDoPeao(Peca peca, Posicao destino)
+        {
+            if ((peca.Cor == Cor.Branco && destino.Linha == 0) || (peca.Cor == Cor.Preto && destino.Linha == 7))
+            {
+                peca = Tabuleiro.RetirarPeca(destino);
+                PecasEmJogo.Remove(peca);
+                Peca Dama = new Dama(Tabuleiro, peca.Cor);
+                Tabuleiro.ColocarPeca(Dama, destino);
+                PecasEmJogo.Add(Dama);
+            }
         }
         public void RealizarJogada(Posicao origem, Posicao destino)
         {
@@ -207,6 +252,11 @@ namespace Chess
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
 
+            Peca peca = Tabuleiro.GetPeca(destino);
+
+            if (peca is Peao)
+                PromocaoDoPeao(peca, destino);
+
             Xeque = ReiEstaEmXeque(GetAdversario(JogadorAtual));
 
             if (TesteXequeMate(GetAdversario(JogadorAtual)))
@@ -216,6 +266,11 @@ namespace Chess
                 PassaTurno();
                 MudaJogador();
             }
+            
+            if (peca is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
+                VulneravelEnPassant = peca;
+            else
+                VulneravelEnPassant = null;
         }
         public void ValidarPosicaoDeOrigem(Posicao posicao)
         {
