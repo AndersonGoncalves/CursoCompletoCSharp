@@ -23,8 +23,7 @@ namespace Arquivos
             }
             #endregion
 
-
-            #region Percorrer um arquivo
+            #region Percorrendo um arquivo para leitura
             try
             {
                 string arquivo = @"D:\file.txt";
@@ -41,9 +40,43 @@ namespace Arquivos
             {
                 Console.WriteLine("Erro: " + e.Message);
             }
-
             #endregion
 
+            #region Percorrendo um arquivo para gravação (versão 1)
+            try
+            {
+                string arquivoLeitura = @"D:\file.txt";
+                string arquivoEscrita = @"D:\file2.txt";
+
+                using (StreamReader sr = File.OpenText(arquivoLeitura))
+                {
+                    using (StreamWriter sw = File.AppendText(arquivoEscrita))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string linha = sr.ReadLine();
+                            sw.WriteLine(linha.ToUpper());
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
+            #endregion
+
+            #region Percorrendo um arquivo para gravação (versão 2)
+            string arquivo1 = @"D:\file.txt";
+            string arquivo2 = @"D:\file3.txt";
+            
+            string[] linhas = File.ReadAllLines(arquivo1);
+            using (StreamWriter streamWriter = File.AppendText(arquivo2))
+            {
+                foreach (string linha in linhas)
+                    streamWriter.WriteLine(linha.ToLower());
+            }
+            #endregion
         }
     }
 }
