@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lista", "Lista\Lista.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arquivos", "Arquivos\Arquivos.csproj", "{17AE6CDF-B587-46F6-8119-A363374881E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arquivos2", "Arquivos2\Arquivos2.csproj", "{ABF953EE-435D-4396-899E-E0496D3F34BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arquivos2", "Arquivos2\Arquivos2.csproj", "{ABF953EE-435D-4396-899E-E0496D3F34BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionMethods", "ExtensionMethods\ExtensionMethods.csproj", "{617A1F92-1689-4BF1-80BF-C7F50729BCD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{ABF953EE-435D-4396-899E-E0496D3F34BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABF953EE-435D-4396-899E-E0496D3F34BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABF953EE-435D-4396-899E-E0496D3F34BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{617A1F92-1689-4BF1-80BF-C7F50729BCD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{617A1F92-1689-4BF1-80BF-C7F50729BCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{617A1F92-1689-4BF1-80BF-C7F50729BCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{617A1F92-1689-4BF1-80BF-C7F50729BCD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
