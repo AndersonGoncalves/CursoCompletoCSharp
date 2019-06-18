@@ -33,8 +33,7 @@ namespace Delegates
             }
             Console.WriteLine();
 
-
-            #region Delegates e Predicate
+            #region Predicate
             //Operacao op = CalcularProdutoServices.Max;
             Operacao op = new Operacao(CalcularProdutoServices.Max);
 
@@ -50,8 +49,9 @@ namespace Delegates
             Console.WriteLine();
 
             #region Action
+            Action<Produto> act = AlterarPreco;
             //Lista.ForEach(p => p.Preco += p.Preco * 0.1);
-            Lista.ForEach(AlterarPreco);            
+            Lista.ForEach(act);
             foreach (Produto produto in Lista)
                 Console.WriteLine(produto);
             #endregion
